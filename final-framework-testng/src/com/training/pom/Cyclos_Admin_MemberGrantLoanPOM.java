@@ -33,27 +33,32 @@ public class Cyclos_Admin_MemberGrantLoanPOM {
 	@FindBy(xpath = "//input[@class=\"button\"][@value=\"Submit\"]")
 	private WebElement loanconfitmBtn;
 
+	// ****Enter Loan description
 	public void sendLoanDescription(String desciption) {
 
 		this.loanDescription.sendKeys(desciption);
 	}
 
+	// **** Click on Grand loan
 	public void clickGrantLoansubmitBtn() {
 		this.grantLoanBtn.click();
 
 	}
 
+	// **** Enter Loan amount
 	public void sendLoanAmount(String amount) {
 
 		this.loanAmount.sendKeys(amount);
 
 	}
 
+	// ****Submit Loan
 	public void clickLoanSubmit() {
 		this.loansubmitBtn.submit();
 
 	}
 
+	// ****Submit loan confirmation
 	public void clickLoanConfirmSubmit() {
 		this.loanconfitmBtn.submit();
 

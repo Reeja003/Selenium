@@ -27,11 +27,9 @@ import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
 public class CYTC_020_Member_AccountInformation_Test {
-	
-	
-	
+
 	private WebDriver driver;
-	
+
 	private String baseUrl;
 	private CyclosLoginPOM cyclosloginPOM;
 	private Cyclos_Member_AccountInformationPOM cyclosmemberaccountPOM;
@@ -40,36 +38,36 @@ public class CYTC_020_Member_AccountInformation_Test {
 
 	@BeforeClass
 	public void setUpBeforeClass() throws IOException {
-		
-	
+
 		properties = new Properties();
 		FileInputStream inStream = new FileInputStream("./resources/others.properties");
 		properties.load(inStream);
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
-		cyclosloginPOM= new CyclosLoginPOM(driver);
-		cyclosmemberaccountPOM=new Cyclos_Member_AccountInformationPOM(driver);
+		cyclosloginPOM = new CyclosLoginPOM(driver);
+		cyclosmemberaccountPOM = new Cyclos_Member_AccountInformationPOM(driver);
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver);
-		// open the browser
+		// open the browser and login with memebr credential
 		driver.get(baseUrl);
 		cyclosloginPOM.sendUserName("Reeja");
-		cyclosloginPOM.sendPassword("reeja123"); 
+		cyclosloginPOM.sendPassword("reeja123");
 		cyclosloginPOM.clickLoginBtn();
-		
 
 	}
 
-	
-	@AfterClass 
+	@AfterClass
 	public void tearDown() throws Exception {
 		Thread.sleep(3000);
 		driver.quit();
 	}
-	
 
 	@Test
 	public void memberAccountInformationTest() {
-		
+
+		/*
+		 * Click account information for a member and view transaction details then
+		 * click back button
+		 */
 		cyclosmemberaccountPOM.clickAccountLink();
 		cyclosmemberaccountPOM.clickAccountInformationLink();
 		screenShot.captureScreenShot("CYTC_020_1.Memberaccountinfo");
@@ -77,15 +75,13 @@ public class CYTC_020_Member_AccountInformation_Test {
 		screenShot.captureScreenShot("CYTC_020_2.Transactiondetails");
 		cyclosmemberaccountPOM.clickBackbtn();
 		screenShot.captureScreenShot("CYTC_020_3.BackbuttontosearchTranpage");
-		String expected="Search transactions on Member account";
-		String actual=cyclosmemberaccountPOM.transactionDetails();
+		/*
+		 * Assert->Search transaction on a member page should display after clicking
+		 * back button
+		 */
+		String expected = "Search transactions on Member account";
+		String actual = cyclosmemberaccountPOM.transactionDetails();
 		Assert.assertEquals(actual, expected);
-		
-		
-		
-		
-		
-		
-	
+
 	}
 }

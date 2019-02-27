@@ -12,7 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.mysql.jdbc.Driver;
 
 public class Cyclos_Admin_MemberViewLoansPOM {
-   private WebDriver driver;
+	private WebDriver driver;
 
 	public Cyclos_Admin_MemberViewLoansPOM(WebDriver driver) {
 		this.driver = driver;
@@ -31,11 +31,13 @@ public class Cyclos_Admin_MemberViewLoansPOM {
 	@FindBy(xpath = "//td[@class='tdContentTableLists innerBorder']//table[@class='defaultTable']/tbody/tr/td[3]")
 	private List<WebElement> remainingAmount;
 
+	// *****Click view Loan
 	public void clickViewLoanBtn() {
 		this.viewloansBtn.click();
 
 	}
 
+	// ****Choose closed radio button and checking the remaining amount
 	public boolean clickClosedRadioBtn()
 
 	{
@@ -53,6 +55,7 @@ public class Cyclos_Admin_MemberViewLoansPOM {
 
 	}
 
+//****Click open radio button and checking the remaining amount
 	public boolean clickOpenRadioBtn()
 
 	{

@@ -1,7 +1,5 @@
 package com.training.sanity.tests;
 
-
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -30,37 +28,38 @@ public class CYTC_017_Admin_MemberAccounts_PaymenSystemToMember_Test {
 	private Cyclos_Admin_MemberPaymentSystemPOM cyclosmemberpaymentPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
-
+	
+	
 	@BeforeClass
 	public void setUpBeforeClass() throws IOException {
 		properties = new Properties();
 		FileInputStream inStream = new FileInputStream("./resources/others.properties");
 		properties.load(inStream);
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
-		cyclosLoginPOM= new CyclosLoginPOM(driver);
-		cyclosmemberpaymentPOM= new Cyclos_Admin_MemberPaymentSystemPOM(driver);
+		cyclosLoginPOM = new CyclosLoginPOM(driver);
+		cyclosmemberpaymentPOM = new Cyclos_Admin_MemberPaymentSystemPOM(driver);
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver);
-		// open the browser
+		// open the browser and login with admin credentials
 		driver.get(baseUrl);
 		cyclosLoginPOM.sendUserName("admin");
-		cyclosLoginPOM.sendPassword("123456"); 
+		cyclosLoginPOM.sendPassword("123456");
 		cyclosLoginPOM.clickLoginBtn();
-		
 
 	}
 
-	@AfterClass 
+	@AfterClass
 	public void tearDown() throws Exception {
 		Thread.sleep(3000);
 		driver.quit();
 	}
-	
 
 	@Test
 	public void memberPaymentSystemTest() {
-		
-		cyclosLoginPOM.sendMemberLogin("manzoor");
+
+		// ****Enter member name and submit payment for memebr
+		String member="manzoor";
+		cyclosLoginPOM.sendMemberLogin(member);
 		cyclosmemberpaymentPOM.clickPaymentSystemSubmitBtn();
 		cyclosmemberpaymentPOM.sendPaymentAmount("500");
 		cyclosmemberpaymentPOM.selectTransactionType("Debit to member");
@@ -69,12 +68,11 @@ public class CYTC_017_Admin_MemberAccounts_PaymenSystemToMember_Test {
 		screenShot.captureScreenShot("CYTC_017_1.Paymentdetails");
 		cyclosmemberpaymentPOM.clickTransactionSubmit();
 		screenShot.captureScreenShot("CYTC_017_2.Successfulpayment");
-		
-		String expected="The payment has been performed";
-		String actual=cyclosmemberpaymentPOM.successpaymentMessaage();				
+		// Assert->payment performed message
+		String expected = "The payment has been performed";
+		String actual = cyclosmemberpaymentPOM.successpaymentMessaage();
 		Assert.assertEquals(actual, expected);
-		
+
 	}
-	
-																														
+
 }

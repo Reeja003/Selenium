@@ -41,7 +41,7 @@ public class CYTC_019_Admin_MemberLoans_ViewLoans_Test {
 		cyclosmemberloanPOM = new Cyclos_Admin_MemberViewLoansPOM(driver);
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver);
-
+//open url and login with admin credentials 
 		driver.get(baseUrl);
 		cyclosLoginPOM.sendUserName("admin");
 		cyclosLoginPOM.sendPassword("123456");
@@ -52,31 +52,32 @@ public class CYTC_019_Admin_MemberLoans_ViewLoans_Test {
 	@AfterClass
 	public void tearDown() throws Exception {
 		Thread.sleep(3000);
-		 driver.quit();
+		driver.quit();
 	}
 
 	@Test
 	public void memberViewLoansTest() {
 
-		cyclosLoginPOM.sendMemberLogin("manzoor");
+		// ****Enter member Login and view loan for the member
+		String member="manzoor";
+		cyclosLoginPOM.sendMemberLogin(member);
 		cyclosmemberloanPOM.clickViewLoanBtn();
-		boolean closedExpected=true;
-		boolean closedActual=cyclosmemberloanPOM.clickClosedRadioBtn();
+
+		/*
+		 * Assert->Compare the remaining loan amount for closed radio button should be
+		 * zero
+		 */
+		boolean closedExpected = true;
+		boolean closedActual = cyclosmemberloanPOM.clickClosedRadioBtn();
 		screenShot.captureScreenShot("CYTC_019_1.ClosedLoan");
-	    Assert.assertEquals(closedActual, closedExpected);
-	  
-		
-		boolean openExpected=false;
-		boolean openActual=cyclosmemberloanPOM.clickOpenRadioBtn();
+		Assert.assertEquals(closedActual, closedExpected);
+
+		// Assert->Compare the remaining loan amount for closed radio button should not
+		// be zero */
+		boolean openExpected = false;
+		boolean openActual = cyclosmemberloanPOM.clickOpenRadioBtn();
 		screenShot.captureScreenShot("CYTC_019_2.OpenLoan");
-		Assert.assertEquals(openActual,openExpected);
-		
-	
-		
-		
-	
-		
-		
+		Assert.assertEquals(openActual, openExpected);
 
 	}
 }

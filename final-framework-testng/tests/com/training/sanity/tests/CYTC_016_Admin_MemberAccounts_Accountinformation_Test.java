@@ -33,38 +33,39 @@ public class CYTC_016_Admin_MemberAccounts_Accountinformation_Test {
 		FileInputStream inStream = new FileInputStream("./resources/others.properties");
 		properties.load(inStream);
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
-		cyclosloginPOM= new CyclosLoginPOM(driver);
+		cyclosloginPOM = new CyclosLoginPOM(driver);
 		cyclosmemberaccountinfoPOM = new Cyclos_Admin_MemberAccoutinformationPOM(driver);
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver);
+		// Open url and login with Admin credentials
 		driver.get(baseUrl);
 		cyclosloginPOM.sendUserName("admin");
-		cyclosloginPOM.sendPassword("123456"); 
+		cyclosloginPOM.sendPassword("123456");
 		cyclosloginPOM.clickLoginBtn();
 
 	}
 
-	@AfterClass 
+	@AfterClass
 	public void tearDown() throws Exception {
 		Thread.sleep(3000);
 		driver.quit();
 	}
-	
 
 	@Test
 	public void memberAccountInfoTest() {
-		cyclosloginPOM.sendMemberLogin("manzoor");
+		// ****Enter member name and select payment type then search
+		String member="manzoor";
+		cyclosloginPOM.sendMemberLogin(member);
 		cyclosmemberaccountinfoPOM.clickAccountinfoSubmitBtn();
 		screenShot.captureScreenShot("CYTC_016_1_Transaction Details");
 		cyclosmemberaccountinfoPOM.selectPaymentType("Commission payments");
 		cyclosmemberaccountinfoPOM.clickPaymentSubmitBtn();
 		screenShot.captureScreenShot("CYTC_016_2.Transaction Details");
-		String expected="Search transactions of manzoor mehadi on Member account";
-		String actual=cyclosmemberaccountinfoPOM.searchTransactionDetails();
-		
+		// Assert->compare the transaction details page text
+		String expected = "Search transactions of manzoor mehadi on Member account";
+		String actual = cyclosmemberaccountinfoPOM.searchTransactionDetails();
 		Assert.assertEquals(actual, expected);
-		
-	
+
 	}
-	
+
 }

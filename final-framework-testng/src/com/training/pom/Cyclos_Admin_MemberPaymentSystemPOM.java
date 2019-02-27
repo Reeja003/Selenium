@@ -31,22 +31,25 @@ public class Cyclos_Admin_MemberPaymentSystemPOM {
 	private WebElement paymentdescription;
 	@FindBy(id = "submitButton")
 	private WebElement paymentSubmitBtn;
-	@FindBy(xpath="//input[@class='button'][@value='Submit']")
+	@FindBy(xpath = "//input[@class='button'][@value='Submit']")
 	private WebElement transactionSubmitBtn;
-	@FindBy(xpath="//*[@id=\"tdContents\"]/table/tbody/tr[2]/td/table/tbody/tr[1]/td")
+	@FindBy(xpath = "//*[@id=\"tdContents\"]/table/tbody/tr[2]/td/table/tbody/tr[1]/td")
 	private WebElement paymentsuccessMsg;
 
+	// ****Click paymentSystem for member
 	public void clickPaymentSystemSubmitBtn() {
 		this.paymentsystemBtn.click();
 
 	}
 
+//****Enter Payment amount
 	public void sendPaymentAmount(String amount) {
 
 		this.amount.sendKeys(amount);
 
 	}
 
+	// **** Select transactio Type
 	public void selectTransactionType(String visibletext) {
 
 		Select transactionType = new Select(wbtransactionType);
@@ -54,22 +57,26 @@ public class Cyclos_Admin_MemberPaymentSystemPOM {
 
 	}
 
+	// ****Enter Description
 	public void sendDescription(String description) {
 
 		this.paymentdescription.sendKeys(description);
 
 	}
 
+	// ****Click submit
 	public void clickPaymentSubmit() {
 		this.paymentSubmitBtn.submit();
 
 	}
 
+//****Submit transaction 
 	public void clickTransactionSubmit() {
 		this.transactionSubmitBtn.submit();
 
 	}
 
+	// ****successpayment message to compare
 	public String successpaymentMessaage() {
 
 		String value = paymentsuccessMsg.getText();

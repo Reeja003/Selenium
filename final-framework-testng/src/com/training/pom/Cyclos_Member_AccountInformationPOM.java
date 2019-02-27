@@ -20,39 +20,43 @@ public class Cyclos_Member_AccountInformationPOM {
 		PageFactory.initElements(driver, this);
 	}
 
-
 	// *** Accounts Section_Accountinformation Link***
 	@FindBy(xpath = "//*[@id=\"menu2\"]/span[2]")
 	private WebElement account;
-	@FindBy(xpath="//*[@id=\"submenu2.0\"]/span[2]")
+	@FindBy(xpath = "//*[@id=\"submenu2.0\"]/span[2]")
 	private WebElement accountinfo;
-	@FindBy(xpath="//*[@id=\"tdContents\"]/table[1]/tbody/tr[3]/td/table/tbody/tr[2]/td[5]/img")
+	@FindBy(xpath = "//*[@id=\"tdContents\"]/table[1]/tbody/tr[3]/td/table/tbody/tr[2]/td[5]/img")
 	private WebElement viewicon;
-	@FindBy(id="backButton")
+	@FindBy(id = "backButton")
 	private WebElement backBtn;
-	@FindBy(xpath="//table [@class=\"defaultTableContent\"]/tbody/tr[1]/td[1]")
+	@FindBy(xpath = "//table [@class=\"defaultTableContent\"]/tbody/tr[1]/td[1]")
 	private WebElement transpage;
 
+	// ****Click account from left menu
 	public void clickAccountLink() {
 
 		account.click();
 	}
 
+	// ****Click Account information link
 	public void clickAccountInformationLink() {
 
 		accountinfo.click();
 	}
 
+	// ****Click view icon in search result section
 	public void clickViewIcon() {
 
 		viewicon.click();
 	}
 
+	// **** Click back button
 	public void clickBackbtn() {
 
 		backBtn.click();
 	}
 
+	// **** Transaction details to compare
 	public String transactionDetails() {
 
 		String value = transpage.getText();

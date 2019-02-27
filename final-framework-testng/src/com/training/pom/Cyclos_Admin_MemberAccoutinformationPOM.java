@@ -21,21 +21,23 @@ public class Cyclos_Admin_MemberAccoutinformationPOM {
 	}
 
 	// *** Accounts_Account information***
-	
+
 	@FindBy(xpath = "//tbody//tr[5]//td[1]//fieldset[1]//table[1]//tbody[1]//tr[1]//td[2]//input[1]")
 	private WebElement accountinfoBtn;
 	@FindBy(name = "query(paymentFilter)")
 	private WebElement wbpamentType;
-	@FindBy(xpath ="//input[@value='Search']")
+	@FindBy(xpath = "//input[@value='Search']")
 	private WebElement searchSubmit;
-	@FindBy(xpath="//table[@class=\"defaultTableContent\"]/tbody/tr[1]/td[1]")
+	@FindBy(xpath = "//table[@class=\"defaultTableContent\"]/tbody/tr[1]/td[1]")
 	private WebElement searchDetails;
 
+	// ****Click Account info from left menu under Account section
 	public void clickAccountinfoSubmitBtn() {
 		this.accountinfoBtn.click();
 
 	}
 
+	// ****Select Payment type
 	public void selectPaymentType(String visibletext) {
 
 		Select paymentType = new Select(wbpamentType);
@@ -43,11 +45,13 @@ public class Cyclos_Admin_MemberAccoutinformationPOM {
 
 	}
 
+//****Click search to get the details 
 	public void clickPaymentSubmitBtn() {
 		this.searchSubmit.submit();
 
 	}
-	
+
+//**** Transaction details to compare 	
 	public String searchTransactionDetails() {
 
 		String value = searchDetails.getText();

@@ -24,9 +24,9 @@ import com.training.utility.DriverNames;
 public class CYTC_018_Admin_MemberLoans_GrantLoan_Test {
 
 	private WebDriver driver;
-    private String baseUrl;
+	private String baseUrl;
 	private CyclosLoginPOM cyclosLoginPOM;
-	private Cyclos_Admin_MemberGrantLoanPOM  cyclosmembergrantloanPOM;
+	private Cyclos_Admin_MemberGrantLoanPOM cyclosmembergrantloanPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 
@@ -37,11 +37,11 @@ public class CYTC_018_Admin_MemberLoans_GrantLoan_Test {
 		FileInputStream inStream = new FileInputStream("./resources/others.properties");
 		properties.load(inStream);
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
-		cyclosLoginPOM= new CyclosLoginPOM(driver);
-		cyclosmembergrantloanPOM= new Cyclos_Admin_MemberGrantLoanPOM (driver);
+		cyclosLoginPOM = new CyclosLoginPOM(driver);
+		cyclosmembergrantloanPOM = new Cyclos_Admin_MemberGrantLoanPOM(driver);
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver);
-		// open the browser
+		// open the browser and login with admin credentials
 		driver.get(baseUrl);
 		cyclosLoginPOM.sendUserName("admin");
 		cyclosLoginPOM.sendPassword("123456");
@@ -58,22 +58,23 @@ public class CYTC_018_Admin_MemberLoans_GrantLoan_Test {
 	@Test
 	public void memberGrantLoanTest() throws Exception {
 
-		cyclosLoginPOM.sendMemberLogin("manzoor");
+		// **** Enter member login
+		String member="manzoor";
+		cyclosLoginPOM.sendMemberLogin(member);
+		//****Grand Loan for member
 		cyclosmembergrantloanPOM.clickGrantLoansubmitBtn();
 		cyclosmembergrantloanPOM.sendLoanAmount("100000");
 		cyclosmembergrantloanPOM.sendLoanDescription("home loan");
 		cyclosmembergrantloanPOM.clickLoanSubmit();
 		screenShot.captureScreenShot("CYTC_018_1.Loandetails");
 		cyclosmembergrantloanPOM.clickLoanConfirmSubmit();
-
+		// Assert->loan successful alert message
 		Alert loanAlert = driver.switchTo().alert();
 		String expected = "The loan was successfully granted";
 		String actual = loanAlert.getText();
 		Assert.assertEquals(actual, expected);
 		loanAlert.accept();
 		screenShot.captureScreenShot("CYTC_018_2.Memberdetailspage");
-		
-	
 
 	}
 }
