@@ -1,18 +1,9 @@
-//***********Verify whether application allows member to add contact & make payment*******
+//******Verify whether application allows member to perform payment to multiple registered member****
 package com.training.sanity.tests;
 
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Test;
-import org.testng.annotations.BeforeClass;
-//import static org.testng.Assert.assertEquals;
-
 import java.awt.AWTException;
-
-//import static org.testng.Assert.assertEquals;
-
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -23,23 +14,28 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import com.training.dataproviders.CyclosDataProviders;
+import com.training.dataproviders.LoginDataProviders;
 import com.training.generics.ScreenShot;
 import com.training.pom.CyclosLoginPOM;
+import com.training.pom.Cyclos_Admin_MemberPaymentSystemPOM;
 import com.training.pom.Cyclos_Member_AddContactandPaymentPOM;
 import com.training.pom.Cyclos_Member_FilterMessagePOM;
 import com.training.pom.Cyclos_Member_ScheduledPaymentsPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class CYTC_050_Member_AddContactandMakePayment_Test {
+public class CYTC_079_Member_PaymentTo_MultiMember_Test {
 
 	private WebDriver driver;
 
 	private String baseUrl;
 	private CyclosLoginPOM cyclosloginPOM;
-	private Cyclos_Member_FilterMessagePOM cyclosfiltermessagePOM;
 	Cyclos_Member_ScheduledPaymentsPOM cyclosscheduledpaymentPOM;
 	private Cyclos_Member_AddContactandPaymentPOM cyclosmemberaddContact;
 	private static Properties properties;
@@ -53,9 +49,8 @@ public class CYTC_050_Member_AddContactandMakePayment_Test {
 		properties.load(inStream);
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
 		cyclosloginPOM = new CyclosLoginPOM(driver);
-		cyclosfiltermessagePOM = new Cyclos_Member_FilterMessagePOM(driver);
-		cyclosmemberaddContact = new Cyclos_Member_AddContactandPaymentPOM(driver);
 		cyclosscheduledpaymentPOM = new Cyclos_Member_ScheduledPaymentsPOM(driver);
+		cyclosmemberaddContact=new Cyclos_Member_AddContactandPaymentPOM(driver);
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver);
 		// open the browser and login with member credential
@@ -72,34 +67,18 @@ public class CYTC_050_Member_AddContactandMakePayment_Test {
 		driver.quit();
 	}
 
-	@Test(priority = 1)
-	public void addAccount() throws AWTException {
-		// ****Add another member as Contact
-		cyclosfiltermessagePOM.clickPersonalTab();
-		cyclosmemberaddContact.clickContactsLink();
-		cyclosmemberaddContact.sendMemberLogin("NewReeja3");
-		cyclosmemberaddContact.clickSubmitBtn();
+	
+	// ****Make payment to multiple member
+	@Test(dataProvider = "excel-inputs2", dataProviderClass = CyclosDataProviders.class)
+	public void makePayment(String memberLogin,String amount,String description) throws AWTException {
 
-		// Assert->contact inserted alert message
-		Alert alertMsg = driver.switchTo().alert();
-		String expected = "The contact was inserted";
-		String actual = alertMsg.getText();
-		Assert.assertEquals(actual, expected);
-		alertMsg.accept();
-		screenShot.captureScreenShot("CYTC_050_1.Added Contact");
-
-	}
-
-	@Test(priority = 2)
-	public void makePayment() {
-
-		// ****Make payment to added contact member
-		cyclosmemberaddContact.clickAddedContact();
-		cyclosmemberaddContact.clickMakepaymentsubmitBtn();
-		cyclosmemberaddContact.sendPaymentAmount("5000");
-		cyclosmemberaddContact.sendPaymentDescription("Welcome");
+		cyclosscheduledpaymentPOM.clickAccountTab();
+		cyclosscheduledpaymentPOM.clickMemberPaymentLink();
+		cyclosscheduledpaymentPOM.sendLogin(memberLogin);
+		cyclosmemberaddContact.sendPaymentAmount(amount);
+		cyclosmemberaddContact.sendPaymentDescription(description);
 		cyclosmemberaddContact.clickSubmit();
-		screenShot.captureScreenShot("CYTC_050_2.Payment details");
+		screenShot.captureScreenShot("CYTC_079_1.Payment details");
 		// Assert->message from the page
 		String expected = "You are about to perform the following payment:";
 		String actual = cyclosscheduledpaymentPOM.actualMessage();
@@ -107,12 +86,12 @@ public class CYTC_050_Member_AddContactandMakePayment_Test {
 
 		// ****Submit payment
 		cyclosscheduledpaymentPOM.clicktranSubmitBtn();
-		screenShot.captureScreenShot("CYTC_050_3.Successful Payment");
+		screenShot.captureScreenShot("CYTC_079_2.Successful Payment");
 		//Assert->Message from successful payment page
 		String expectedMsg="The payment has been performed";
 		String actualMsg=cyclosmemberaddContact.successMessage();
 		Assert.assertEquals(actualMsg, expectedMsg);
-		
+		cyclosscheduledpaymentPOM.clickAccountTab();
 
 	}
 

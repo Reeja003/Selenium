@@ -7,16 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.training.bean.LoginBean;
+import com.training.bean.CyclosBean;
 import com.training.connection.GetConnection;
 import com.training.utility.LoadDBDetails;
 
 // Data Access Object 
-public class ELearningDAO {
+public class CyclosDAO {
 	
 	Properties properties; 
 	
-	public ELearningDAO() {
+	public CyclosDAO() {
 		 try {
 			properties = new Properties();
 			FileInputStream inStream = new FileInputStream("./resources/sql.properties");
@@ -27,23 +27,29 @@ public class ELearningDAO {
 		}
 	}
 	
-	public List<LoginBean> getLogins(){
-		String sql = properties.getProperty("get.logins"); 
+	//public List<LoginBean> getLogins(){
+		//String sql = properties.getProperty("get.logins"); 
 		
+		
+public List<CyclosBean> getLoanDetails(){
+			
+			String sql = properties.getProperty("get.loandetails");
 		GetConnection gc  = new GetConnection(); 
-		List<LoginBean> list = null;
+		List<CyclosBean> list = null;
 		try {
 			gc.ps1 = GetConnection.getMySqlConnection(LoadDBDetails.getDBDetails()).prepareStatement(sql); 
-			list = new ArrayList<LoginBean>(); 
+			list = new ArrayList<CyclosBean>(); 
 			
 			gc.rs1 = gc.ps1.executeQuery(); 
 			
 			while(gc.rs1.next()) {
 			
-				LoginBean temp = new LoginBean(); 
-				temp.setUserName(gc.rs1.getString(1));
-				temp.setPassword(gc.rs1.getString(2));
-				
+				CyclosBean temp = new CyclosBean(); 
+				//temp.setUserName(gc.rs1.getString(1));
+				//temp.setPassword(gc.rs1.getString(2));
+				temp.setMemberName(gc.rs1.getString(1));
+				temp.setAmount(gc.rs1.getString(2));
+				temp.setDescription(gc.rs1.getString(3));
 
 				list.add(temp); 
 				
@@ -56,7 +62,7 @@ public class ELearningDAO {
 	}
 	
 	public static void main(String[] args) {
-		new ELearningDAO().getLogins().forEach(System.out :: println);
+		new CyclosDAO().getLoanDetails().forEach(System.out :: println);
 	}
 	
 	

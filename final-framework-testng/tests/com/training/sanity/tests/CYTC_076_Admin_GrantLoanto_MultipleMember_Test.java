@@ -1,4 +1,5 @@
-//************** verify whether application allows admin to grant loan to selected member********
+//***********Verify whether application allows admin to grant loan to multiple member**********
+
 package com.training.sanity.tests;
 
 import static org.testng.Assert.assertEquals;
@@ -17,13 +18,16 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import com.training.dataproviders.CyclosDataProviders;
+import com.training.dataproviders.LoginDataProviders;
 import com.training.generics.ScreenShot;
 import com.training.pom.CyclosLoginPOM;
 import com.training.pom.Cyclos_Admin_MemberGrantLoanPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class CYTC_018_Admin_MemberLoans_GrantLoan_Test {
+public class CYTC_076_Admin_GrantLoanto_MultipleMember_Test {
 
 	private WebDriver driver;
 	private String baseUrl;
@@ -57,28 +61,31 @@ public class CYTC_018_Admin_MemberLoans_GrantLoan_Test {
 		driver.quit();
 	}
 
-	@Test
-	public void memberGrantLoanTest() throws Exception {
-
-		
 	
+	//****Grand Loan for multiple members
+	
+	@Test(dataProvider = "excel-inputs", dataProviderClass = CyclosDataProviders.class)
+	public void grandLoanMultipleDataexcelTest(String MemberLogin,String Amount,String Description)throws IOException {
+
 		// **** Enter member login
-		String member="manzoor";
-		cyclosLoginPOM.sendMemberLogin(member);
+		
+		cyclosLoginPOM.sendMemberLogin(MemberLogin);
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		//****Grand Loan for member
 		cyclosmembergrantloanPOM.clickGrantLoansubmitBtn();
-		cyclosmembergrantloanPOM.sendLoanAmount("100000");
-		cyclosmembergrantloanPOM.sendLoanDescription("home loan");
+		cyclosmembergrantloanPOM.sendLoanAmount(Amount);
+		cyclosmembergrantloanPOM.sendLoanDescription(Description);
 		cyclosmembergrantloanPOM.clickLoanSubmit();
-		screenShot.captureScreenShot("CYTC_018_1.Loandetails");
 		cyclosmembergrantloanPOM.clickLoanConfirmSubmit();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		// Assert->loan successful alert message
 		Alert loanAlert = driver.switchTo().alert();
 		String expected = "The loan was successfully granted";
 		String actual = loanAlert.getText();
 		Assert.assertEquals(actual, expected);
 		loanAlert.accept();
-		screenShot.captureScreenShot("CYTC_018_2.Memberdetailspage");
+		screenShot.captureScreenShot("CYTC_076_GrantsLoan_Multiplemember_"+MemberLogin);
+		cyclosmembergrantloanPOM.clickHomeBtn();
 
 	}
 }

@@ -63,8 +63,27 @@ public class CyclosLoginPOM {
 		Actions act = new Actions(driver);
 		act.moveToElement(search).build().perform();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		WebElement list=driver.findElement(By.xpath("//*[@id=\"membersByUsername\"]/ul/li[contains(text(),'manzoor mehadi (manzoor)')]") );
+		//WebElement list=driver.findElement(By.xpath("//*[@id=\"membersByUsername\"]/ul/li[contains(text(),'manzoor mehadi (manzoor)')]") );
+		WebElement list=driver.findElement(By.xpath("//*[@id=\"membersByUsername\"]/ul/li[1]") );
 		act.moveToElement(list).click().perform();
+	
+		
+	
+	}
+	
+	
+	public String memberLogin(String loginText)
+
+	{
+		this.memberLogin.sendKeys(loginText);
+		WebElement search = memberLogin;
+		Actions act = new Actions(driver);
+		act.moveToElement(search).build().perform();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		//WebElement list=driver.findElement(By.xpath("//*[@id=\"membersByUsername\"]/ul/li[contains(text(),'manzoor mehadi (manzoor)')]") );
+		WebElement list=driver.findElement(By.xpath("//*[@id=\"membersByUsername\"]/ul/li[1]") );
+		act.moveToElement(list).click().perform();
+		return loginText;
 	
 		
 	

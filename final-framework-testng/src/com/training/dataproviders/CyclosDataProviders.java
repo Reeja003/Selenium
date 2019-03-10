@@ -4,31 +4,35 @@ import java.util.List;
 
 import org.testng.annotations.DataProvider;
 
-import com.training.bean.LoginBean;
-import com.training.dao.ELearningDAO;
+import com.training.bean.CyclosBean;
+import com.training.dao.CyclosDAO;
 import com.training.readexcel.ApachePOIExcelRead;
 import com.training.readexcel.ReadExcel;
 
-public class LoginDataProviders {
+public class CyclosDataProviders {
 
 	@DataProvider(name = "db-inputs")
 	public Object [][] getDBData() {
 
-		List<LoginBean> list = new ELearningDAO().getLogins(); 
+		List<CyclosBean> list = new CyclosDAO().getLoanDetails(); ; 
 		
 		Object[][] result = new Object[list.size()][]; 
 		int count = 0; 
-		for(LoginBean temp : list){
-			Object[]  obj = new Object[2]; 
-			obj[0] = temp.getUserName(); 
-			obj[1] = temp.getPassword(); 
-			
+		for(CyclosBean temp : list){
+			Object[]  obj = new Object[3]; 
+			obj[0] = temp.getMemberName(); 
+			obj[1] = temp.getAmount(); 
+			obj[2]=temp.getDescription();
 			result[count ++] = obj; 
 		}
 		
 		
 		return result;
 	}
+	
+	
+	
+	
 	
 	@DataProvider(name = "excel-inputs")
 	public Object[][] getExcelData(){
@@ -46,6 +50,13 @@ public class LoginDataProviders {
 		
 	}
 	
+	@DataProvider(name = "excel-inputs3")
+	public Object[][] getExcelData3(){
+		String fileName ="C:/Reeja/Selenium/Project/TestData/CyclosTestData.xlsx"; 
+		String sheetName="CYCTD_080";
+		return new ApachePOIExcelRead().getExcelContent(fileName,sheetName); 
+		
+	}
 	
 	
 	

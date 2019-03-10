@@ -3,13 +3,13 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.training.sanity.tests.CYTC_016_Admin_MemberAccounts_Accountinformation_Test">
+      <class name="com.training.sanity.tests.CYTC_078_E2E_Admin_GrantLoan_Member_Repay_Test">
         <methods>
+          <include name="memberViewLoansTest"/>
           <include name="tearDown"/>
           <include name="setUpBeforeClass"/>
-          <include name="memberAccountInfoTest"/>
         </methods>
-      </class> <!-- com.training.sanity.tests.CYTC_016_Admin_MemberAccounts_Accountinformation_Test -->
+      </class> <!-- com.training.sanity.tests.CYTC_078_E2E_Admin_GrantLoan_Member_Repay_Test -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

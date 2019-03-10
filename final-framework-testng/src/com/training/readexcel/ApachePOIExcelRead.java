@@ -18,21 +18,32 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *      participatns are asked to refractor this path in the property file and
  *      access.
  */
+
+
 public class ApachePOIExcelRead {
-	public  String [][] getExcelContent(String fileName) {
+	
+	static String sheetName ;
+	public  String [][] getExcelContent(String fileName,String sheetName) {
 		int rowCount =0; 
 		String [][] list1 = null; 
 		
 		try {
 			System.out.println("File Name Got " + fileName);
+			//FileInputStream file = new FileInputStream(new File(fileName));
+
+
 			FileInputStream file = new FileInputStream(new File(fileName));
 
 			// Create Workbook instance holding reference to .xlsx file
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
 
 			// Get first/desired sheet from the workbook
+			/*can use by sheet index 
 			XSSFSheet sheet = workbook.getSheetAt(0);
+			*/
 			
+			XSSFSheet sheet = workbook.getSheet(sheetName);
+		
 			int rowTotal = sheet.getLastRowNum();
 
 			if ((rowTotal > 0) || (sheet.getPhysicalNumberOfRows() > 0)) {
@@ -42,7 +53,7 @@ public class ApachePOIExcelRead {
 			
 			// Iterate through each rows one by one
 			Iterator<Row> rowIterator = sheet.iterator();
-			 list1 = new String[rowTotal][2];
+			 list1 = new String[rowTotal][3];
 			 
 			while (rowIterator.hasNext()) {
 				Row row = rowIterator.next();
@@ -71,6 +82,13 @@ public class ApachePOIExcelRead {
 							tempList1[cellCount] =cell.getStringCellValue();
 						}
 						break;
+						
+					case Cell.CELL_TYPE_BLANK:
+						if(cell.getStringCellValue()!=null){
+							tempList1[cellCount] =cell.getStringCellValue();
+						}
+						break;
+						
 					}
 					cellCount ++; 
 				}
@@ -89,9 +107,11 @@ public class ApachePOIExcelRead {
 	}
 
 	public static void main(String[] args) {
-		String fileName = "C:/Users/Naveen/Desktop/Testing.xlsx";
+		//String fileName = "C:/Users/Naveen/Desktop/Testing.xlsx";
 		
-		for(String [] temp : new ApachePOIExcelRead().getExcelContent(fileName)){
+		String fileName = "C:/Reeja/Selenium/Project/TestData/CyclosTestData.xlsx";
+
+		for(String [] temp : new ApachePOIExcelRead().getExcelContent(fileName,sheetName)){
 			for(String  tt : temp){
 				System.out.println(tt);
 			}

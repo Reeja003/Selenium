@@ -1,3 +1,4 @@
+//*********Verify whether application displays Account information of member*****
 package com.training.sanity.tests;
 
 import org.testng.annotations.AfterMethod;
@@ -10,6 +11,7 @@ import org.testng.annotations.BeforeClass;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -56,8 +58,8 @@ public class CYTC_020_Member_AccountInformation_Test {
 	}
 
 	@AfterClass
-	public void tearDown() throws Exception {
-		Thread.sleep(3000);
+	public void tearDown()  {
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.quit();
 	}
 

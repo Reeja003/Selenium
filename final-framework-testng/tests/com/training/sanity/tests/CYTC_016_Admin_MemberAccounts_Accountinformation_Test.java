@@ -1,8 +1,11 @@
+//**********Verify whether application allows admin to display Accounts details of a particular member based on the search criteria******//
 package com.training.sanity.tests;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -46,15 +49,15 @@ public class CYTC_016_Admin_MemberAccounts_Accountinformation_Test {
 	}
 
 	@AfterClass
-	public void tearDown() throws Exception {
-		Thread.sleep(3000);
+	public void tearDown()  {
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.quit();
 	}
 
 	@Test
 	public void memberAccountInfoTest() {
 		// ****Enter member name and select payment type then search
-		String member="manzoor";
+		String member = "manzoor";
 		cyclosloginPOM.sendMemberLogin(member);
 		cyclosmemberaccountinfoPOM.clickAccountinfoSubmitBtn();
 		screenShot.captureScreenShot("CYTC_016_1_Transaction Details");

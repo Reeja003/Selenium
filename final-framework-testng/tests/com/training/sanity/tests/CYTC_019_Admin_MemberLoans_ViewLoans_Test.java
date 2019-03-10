@@ -1,3 +1,4 @@
+//*********whether application allows admin to display the loans granted details for member based on the filtered criteria should get displayed****
 package com.training.sanity.tests;
 
 import static org.testng.Assert.assertEquals;
@@ -5,6 +6,7 @@ import static org.testng.Assert.assertEquals;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -50,16 +52,17 @@ public class CYTC_019_Admin_MemberLoans_ViewLoans_Test {
 	}
 
 	@AfterClass
-	public void tearDown() throws Exception {
-		Thread.sleep(3000);
+	public void tearDown()  {
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.quit();
 	}
 
+	// ****Test Member should be able to view the loan
 	@Test
 	public void memberViewLoansTest() {
 
 		// ****Enter member Login and view loan for the member
-		String member="manzoor";
+		String member = "manzoor";
 		cyclosLoginPOM.sendMemberLogin(member);
 		cyclosmemberloanPOM.clickViewLoanBtn();
 

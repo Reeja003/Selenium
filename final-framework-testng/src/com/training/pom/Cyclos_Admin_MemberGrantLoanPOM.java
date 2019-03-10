@@ -32,6 +32,13 @@ public class Cyclos_Admin_MemberGrantLoanPOM {
 	private WebElement loansubmitBtn;
 	@FindBy(xpath = "//input[@class=\"button\"][@value=\"Submit\"]")
 	private WebElement loanconfitmBtn;
+	// ****Home tab from left menu 
+	@FindBy(xpath = "//*[@class='menuText'][contains(text(),'Home')]")
+	private WebElement homeBtn;
+	
+	@FindBy(xpath= "//*[@class=\"menuText\"][contains(text(),\"Logout\")]")
+	private WebElement logout;
+	
 
 	// ****Enter Loan description
 	public void sendLoanDescription(String desciption) {
@@ -43,6 +50,13 @@ public class Cyclos_Admin_MemberGrantLoanPOM {
 	public void clickGrantLoansubmitBtn() {
 		this.grantLoanBtn.click();
 
+	}
+
+	
+	//***Logout from admin
+	public void clickLogout()
+	{
+		this.logout.click();
 	}
 
 	// **** Enter Loan amount
@@ -64,4 +78,24 @@ public class Cyclos_Admin_MemberGrantLoanPOM {
 
 	}
 
+	// ****Submit loan confirmation
+		public void clickHomeBtn() {
+			this.homeBtn.click();
+
+		}
+		
+		public String loanAmount(String amount) {
+
+			this.loanAmount.sendKeys(amount);
+			return amount;
+
+		}
+		
+		public String loanDescription(String desciption) {
+
+			this.loanDescription.sendKeys(desciption);
+			return desciption;
+		}
+		
+		
 }

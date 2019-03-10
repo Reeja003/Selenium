@@ -2,24 +2,24 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="13953" started-at="2019-02-27T14:58:52Z" finished-at="2019-02-27T14:59:06Z">
+  <suite name="Default suite" duration-ms="13627" started-at="2019-03-10T18:19:31Z" finished-at="2019-03-10T18:19:45Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="13953" started-at="2019-02-27T14:58:52Z" finished-at="2019-02-27T14:59:06Z">
-      <class name="com.training.sanity.tests.CYTC_020_Member_AccountInformation_Test">
-        <test-method status="PASS" signature="setUpBeforeClass()[pri:0, instance:com.training.sanity.tests.CYTC_020_Member_AccountInformation_Test@6f7fd0e6]" name="setUpBeforeClass" is-config="true" duration-ms="7021" started-at="2019-02-27T14:58:52Z" finished-at="2019-02-27T14:58:59Z">
+    <test name="Default test" duration-ms="13627" started-at="2019-03-10T18:19:31Z" finished-at="2019-03-10T18:19:45Z">
+      <class name="com.training.sanity.tests.CYTC_017_Admin_MemberAccounts_PaymenSystemToMember_Test">
+        <test-method status="PASS" signature="setUpBeforeClass()[pri:0, instance:com.training.sanity.tests.CYTC_017_Admin_MemberAccounts_PaymenSystemToMember_Test@6f7fd0e6]" name="setUpBeforeClass" is-config="true" duration-ms="6976" started-at="2019-03-10T18:19:31Z" finished-at="2019-03-10T18:19:38Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBeforeClass -->
-        <test-method status="PASS" signature="memberAccountInformationTest()[pri:0, instance:com.training.sanity.tests.CYTC_020_Member_AccountInformation_Test@6f7fd0e6]" name="memberAccountInformationTest" duration-ms="2919" started-at="2019-02-27T14:58:59Z" finished-at="2019-02-27T14:59:02Z">
+        <test-method status="PASS" signature="memberPaymentSystemTest()[pri:0, instance:com.training.sanity.tests.CYTC_017_Admin_MemberAccounts_PaymenSystemToMember_Test@6f7fd0e6]" name="memberPaymentSystemTest" duration-ms="4919" started-at="2019-03-10T18:19:38Z" finished-at="2019-03-10T18:19:43Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- memberAccountInformationTest -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.training.sanity.tests.CYTC_020_Member_AccountInformation_Test@6f7fd0e6]" name="tearDown" is-config="true" duration-ms="3977" started-at="2019-02-27T14:59:02Z" finished-at="2019-02-27T14:59:06Z">
+        </test-method> <!-- memberPaymentSystemTest -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.training.sanity.tests.CYTC_017_Admin_MemberAccounts_PaymenSystemToMember_Test@6f7fd0e6]" name="tearDown" is-config="true" duration-ms="1684" started-at="2019-03-10T18:19:43Z" finished-at="2019-03-10T18:19:45Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- com.training.sanity.tests.CYTC_020_Member_AccountInformation_Test -->
+      </class> <!-- com.training.sanity.tests.CYTC_017_Admin_MemberAccounts_PaymenSystemToMember_Test -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

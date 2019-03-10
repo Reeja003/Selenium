@@ -1,8 +1,10 @@
+//*************Verify whether application allows admin to make the payment for member******
 package com.training.sanity.tests;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -28,8 +30,7 @@ public class CYTC_017_Admin_MemberAccounts_PaymenSystemToMember_Test {
 	private Cyclos_Admin_MemberPaymentSystemPOM cyclosmemberpaymentPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
-	
-	
+
 	@BeforeClass
 	public void setUpBeforeClass() throws IOException {
 		properties = new Properties();
@@ -49,8 +50,8 @@ public class CYTC_017_Admin_MemberAccounts_PaymenSystemToMember_Test {
 	}
 
 	@AfterClass
-	public void tearDown() throws Exception {
-		Thread.sleep(3000);
+	public void tearDown()  {
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.quit();
 	}
 
@@ -58,7 +59,7 @@ public class CYTC_017_Admin_MemberAccounts_PaymenSystemToMember_Test {
 	public void memberPaymentSystemTest() {
 
 		// ****Enter member name and submit payment for memebr
-		String member="manzoor";
+		String member = "manzoor";
 		cyclosLoginPOM.sendMemberLogin(member);
 		cyclosmemberpaymentPOM.clickPaymentSystemSubmitBtn();
 		cyclosmemberpaymentPOM.sendPaymentAmount("500");

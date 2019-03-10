@@ -60,7 +60,7 @@ public class Cyclos_Member_ScheduledPaymentsPOM {
 	}
 
 	public void clickMemberPaymentLink() {
-
+		
 		membepaymentLink.click();
 	}
 

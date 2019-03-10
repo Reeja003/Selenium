@@ -28,8 +28,8 @@ public class Cyclos_Member_FilterTransactionPOM {
 	// *** Account section from left menu***
 	@FindBy(xpath = "//*[@class=\"menuText\"][contains(text(),\"Account\")]")
 	private WebElement accountTab;
-	@FindBy(xpath = "//*[@class=\"subMenuText\"][contains(text(),\"Account Information\")]")
 	// ***Search transactions on Member account section ***
+	@FindBy(xpath = "//*[@class=\"subMenuText\"][contains(text(),\"Account Information\")]")
 	private WebElement accountinfoLink;
 	@FindBy(id = "modeButton")
 	private WebElement advancedBtn;

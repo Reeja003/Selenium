@@ -1,3 +1,4 @@
+//*****Verify whether application displays Account information of member*****
 package com.training.sanity.tests;
 
 import org.testng.annotations.AfterMethod;
@@ -59,8 +60,8 @@ public class CYTC_046_Member_FilterTransaction_Test {
 	}
 
 	@AfterClass
-	public void tearDown() throws Exception {
-		Thread.sleep(3000);
+	public void tearDown()  {
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.quit();
 	}
 

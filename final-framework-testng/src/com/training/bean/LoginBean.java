@@ -3,6 +3,7 @@ package com.training.bean;
 public class LoginBean {
 	private String userName;
 	private String password;
+	
 
 	public LoginBean() {
 	}
@@ -11,6 +12,8 @@ public class LoginBean {
 		super();
 		this.userName = userName;
 		this.password = password;
+		
+		
 	}
 
 	public String getUserName() {
@@ -28,6 +31,7 @@ public class LoginBean {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 
 	@Override
 	public String toString() {
